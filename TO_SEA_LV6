@@ -1,5 +1,6 @@
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 
 local targetPosition = Vector3.new(-42547.19, 80, 5096.85)
@@ -9,6 +10,9 @@ local isNearTarget = false
 
 local lungeSpeed = 300
 local proximityThreshold = 10
+
+local dragging = false
+local dragInput, dragStart, startPos
 
 local function moveToTarget()
     local character = player.Character or player.CharacterAdded:Wait()
@@ -53,7 +57,7 @@ Frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
 Frame.Size = UDim2.new(0, 200, 0, 120)
 Frame.Position = UDim2.new(0.5, -100, 0.5, -60)
 Frame.Active = true
-Frame.Draggable = true
+Frame.Draggable = false -- Tắt mặc định vì hỗ trợ kéo tay thủ công
 
 Title.Parent = Frame
 Title.BackgroundTransparency = 1
@@ -81,6 +85,35 @@ DeleteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 DeleteButton.TextScaled = true
 DeleteButton.Font = Enum.Font.SourceSansBold
 
+-- Kéo thả (PC & PE)
+Frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = Frame.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+Frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        local delta = input.Position - dragStart
+        Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+-- Nút bật/tắt
 ToggleButton.MouseButton1Click:Connect(function()
     isEnabled = not isEnabled
     if isEnabled then
@@ -93,6 +126,7 @@ ToggleButton.MouseButton1Click:Connect(function()
     end
 end)
 
+-- Nút xóa
 DeleteButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
