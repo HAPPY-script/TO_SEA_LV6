@@ -1,3 +1,4 @@
+l
 --Frozen Watcher
 
 local RunService = game:GetService("RunService")
@@ -5,7 +6,7 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 
-local targetPosition = Vector3.new(-213454.09, 100, 579.82)
+local targetPosition = Vector3.new(-353290.19, 36.82, -2783.11)
 local baseTargetPosition = targetPosition -- Lưu tọa độ gốc
 
 local isEnabled = false
