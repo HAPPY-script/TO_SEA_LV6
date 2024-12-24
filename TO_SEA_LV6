@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 
-local targetPosition = Vector3.new(-353290.19, 77, -2783.11)
+local targetPosition = Vector3.new(-478198.56, 77, -3827.49)
 local baseTargetPosition = targetPosition -- Lưu tọa độ gốc
 
 local isEnabled = false
