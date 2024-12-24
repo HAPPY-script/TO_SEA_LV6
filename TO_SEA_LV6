@@ -163,7 +163,7 @@ UpDownButton.MouseButton1Click:Connect(function()
     if isUp then
         UpDownButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255) -- Màu nền khi là up
         UpDownButton.Text = "Up"
-        targetPosition = baseTargetPosition + Vector3.new(0, 5000, 0)
+        targetPosition = baseTargetPosition + Vector3.new(0, 20000, 0)
     else
         UpDownButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Màu nền khi là down
         UpDownButton.Text = "Down"
