@@ -12,7 +12,7 @@ local isEnabled = false
 local isNearTarget = false
 local isUp = false -- Trạng thái của nút up/down
 
-local lungeSpeed = 300
+local lungeSpeed = 250
 local proximityThreshold = 10
 
 local dragging = false
